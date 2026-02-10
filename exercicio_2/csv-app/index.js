@@ -1,35 +1,18 @@
-// import { writeFileSync } from "fs";
-import { createInterface } from "readline";
-import { promisify } from "util";
-import { appendFileSync, existsSync } from "fs";
+import prompt from "prompt";
+import { createObjectCsvWriter } from "csv-writer";
 
-// const content = "Test content";
+prompt.start();
+prompt.message = "";
 
-// try {
-//   writeFileSync("./file.txt", content);
-//   console.log("File created successfully");
-// } catch (error) {
-//   console.error("Error writing file:", error);
-// }
-
-const readline = createInterface({
-  input: process.stdin,
-  output: process.stdout,
+const csvWriter = createObjectCsvWriter({
+  path: "./contacts.csv",
+  append: true,
+  header: [
+    { id: "name", tittle: "NAME" },
+    { id: "number", tittle: "NUMBER" },
+    { id: "email", tittle: "EMAIL" },
+  ],
 });
-
-const readLineAsync = (message) =>
-  new Promise((resolve) => readline.question(message, resolve));
-
-// const readLineAsync = promisify(readline.question).bind(rl)(async () => {
-//   try {
-//     const name = await readLineAsync("Qual é o seu nome?");
-//     console.log(`Olá ${name}!`);
-//   } catch (err) {
-//     console.error("Error", err.message);
-//   } finally {
-//     readline.close();
-//   }
-// })();
 
 class Person {
   constructor(name = "", number = "", email = "") {
@@ -38,15 +21,14 @@ class Person {
     this.email = email;
   }
 
-  saveToCSV() {
-    const content = `${this.name}, ${this.number}, ${this.email}\n`;
-
-    if (!existsSync("./contacts.csv")) {
-      appendFileSync("./contacts.csv", "Name, Number, Email\n");
-    }
+  async saveToCSV() {
+    // if (!existsSync("./contacts.csv")) {
+    //   appendFileSync("./contacts.csv", "Name, Number, Email\n");
+    // }
 
     try {
-      appendFileSync("./contacts.csv", content);
+      const { name, number, email } = this;
+      await csvWriter.writeRecords([{ name, number, email }]);
       console.log(`${this.name} Salvo!!`);
     } catch (err) {
       console.log(err);
@@ -55,21 +37,31 @@ class Person {
 }
 
 const startApp = async () => {
-  let shouldContinue = true;
-  while (shouldContinue) {
-    const name = await readLineAsync("Nome do contato: ");
-    const number = await readLineAsync("Número do contato: ");
-    const email = await readLineAsync("Email do contato: ");
+  const questions = [
+    {
+      name: "name",
+      description: "Nome do contato",
+    },
+    {
+      name: "number",
+      description: "Número do contato",
+    },
+    {
+      name: "email",
+      description: "Email do contato",
+    },
+  ];
 
-    const person = new Person(name, number, email);
-    person.saveToCSV();
+  const responses = await prompt.get(questions);
+  const person = new Person(responses.name, responses.number, responses.email);
+  await person.saveToCSV();
 
-    const response = await readLineAsync(
-      "Deseja adicionar outro contato? (s/n): ",
-    );
-    shouldContinue = response.toLowerCase() === "s";
+  const { again } = await prompt.get([
+    { name: "again", description: "Deseja continuar? (s/n)" },
+  ]);
+  if (again.toLowerCase() === "s") {
+    await satartApp();
   }
-  readline.close();
 };
 
 startApp();

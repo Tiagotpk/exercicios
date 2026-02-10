@@ -1,19 +1,19 @@
-# 📘 Exercícios utilizando NodeJs e suas bibliotecas
+# 📘 Exercícios com Node.js e Bibliotecas Nativas
 
 Este repositório foi criado com o objetivo de **praticar e consolidar conhecimentos em Node.js**, por meio da criação e execução de exercícios simples, práticos e progressivos.
 
-📌 **Meta pessoal:** publicar ** exercícios **, evoluindo gradualmente do básico ao avançado.
+📌 **Meta pessoal:** publicar **um ou mais exercícios por dia**, evoluindo gradualmente do básico ao avançado.
 
 ---
 
 ## 🚀 Objetivo do Repositório
 
 - Praticar fundamentos do **Node.js**
-- Aprender a trabalhar com:
+- Trabalhar com:
   - Entrada e saída de dados no console
   - Manipulação de arquivos
   - Módulos nativos do Node.js
-  - Boas práticas de organização de código
+  - Estruturação e organização de projetos
 - Criar um histórico público de evolução para **portfólio**
 
 ---
@@ -24,44 +24,25 @@ Este repositório foi criado com o objetivo de **praticar e consolidar conhecime
 - JavaScript (ES6+)
 - Módulos nativos:
   - `fs`
-  - 
+  - `readline`
+
+---
+
 ## 📂 Estrutura do Repositório
 
+```txt
 exercicios/
 │
-├── exercicio_1/
-│ ├── fastify-test-app/
-│     ├── plugins/
-│     ├── routes/
-│     ├── test/
-│     └── app.js
+├── exercicio-01-csv-input/
+│   ├── index.js
+│   ├── contacts.csv
+│   └── README.md
 │
-├── exercicio_1/
-│ ├── csv-app/
-│     ├── index.js/
-│     └── contacts.csv/
+├── exercicio-02-fastify-basico/
+│   ├── app.js
+│   ├── plugins/
+│   ├── routes/
+│   ├── test/
+│   └── README.md
+│
 └── README.md
-
-
-## 🧪 Exercícios
-
-### ✅ Exercício 02 – Leitor de Input e Gerador de CSV
-
-📅 **Data:** _(09/02/2026)_  
-📌 **Descrição:**
-
-Aplicação em Node.js que:
-- Lê dados digitados pelo usuário no **console**
-- Armazena esses dados
-- Gera um **arquivo CSV** com as informações inseridas
-
-📚 **Conceitos praticados:**
-- Entrada de dados via terminal (`readline`)
-- Escrita de arquivos (`fs`)
-- Manipulação de strings
-- Organização básica de código
-
-📄 **Exemplo de saída (CSV):**
-```csv
-nome,numero,email
-Tiago,99998888,tiago@email.com

@@ -22,10 +22,6 @@ class Person {
   }
 
   async saveToCSV() {
-    // if (!existsSync("./contacts.csv")) {
-    //   appendFileSync("./contacts.csv", "Name, Number, Email\n");
-    // }
-
     try {
       const { name, number, email } = this;
       await csvWriter.writeRecords([{ name, number, email }]);
@@ -59,9 +55,7 @@ const startApp = async () => {
   const { again } = await prompt.get([
     { name: "again", description: "Deseja continuar? (s/n)" },
   ]);
-  if (again.toLowerCase() === "s") {
-    await satartApp();
-  }
+  if (again.toLowerCase() === "s") await startApp();
 };
 
 startApp();

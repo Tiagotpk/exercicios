@@ -1,0 +1,12 @@
+{
+  "name": "csv-app",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Um app para ler arquivos CSV e exibir os dados em uma tabela.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tiago Reis",
+  "license": "ISC"
+}
